@@ -111,7 +111,14 @@ def load_scene(cfg: DictConfig):
         object_pos.append(obj_position)
 
         obj_name, obj_id = obj_cfg_og_id.split("-")
-        encr_obj_usd_path = os.path.join(og_dir, "omnigibson/data/og_dataset/objects", obj_name, obj_id, "usd", f"{obj_id}.encrypted.usd")
+        encr_obj_usd_path = os.path.join(
+            og_dir,
+            "omnigibson/data/og_dataset/objects",
+            obj_name,
+            obj_id,
+            "usd",
+            f"{obj_id}.encrypted.usd",
+        )
         # obj_usd_path = os.path.join("/tmp", f"{obj_name}-{obj_id}.usd")
         obj_usd_path = encr_obj_usd_path.replace(".encrypted.usd", ".usd")
         og_decrypt_file(encr_obj_usd_path, obj_usd_path)
@@ -374,7 +381,11 @@ def main(cfg: DictConfig):
     curr_q = torch.tensor(robot.get_joint_positions()[:-2], dtype=torch.float32, device=cfg.device)
     grasp_pos, grasp_quat = (
         torch.tensor(grasp_transfs[:, :3, 3], dtype=torch.float32, device=cfg.device),
-        torch.tensor(matrix_to_wxyz(grasp_transfs[:, :3, :3]), dtype=torch.float32, device=cfg.device),
+        torch.tensor(
+            matrix_to_wxyz(grasp_transfs[:, :3, :3]),
+            dtype=torch.float32,
+            device=cfg.device,
+        ),
     )
 
     torch.cuda.empty_cache()

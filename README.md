@@ -1,5 +1,7 @@
 # Afford-X: Task-oriented Manipulation
 
+This repo is an official implementation of the simulation studies in Afford-X. The Afford-X model is released in [GitHub: ZhuXMMM/Afford-X](https://github.com/ZhuXMMM/Afford-X).
+
 ## Setup Environment
 
 ### Install Isaac Sim
@@ -56,6 +58,12 @@ python scripts/download_datasets.py
 ```
 
 This will download the OG dataset into `OmniGibson/omnigibson/data`.
+
+### Download Additional Data
+
+In the last step, we will download some additional data that includes the task-related configs and part of the assets. Download the zip files from [this Google Drive folder](https://drive.google.com/drive/folders/1L0EEIxxMmV80_gYhSjmDPH8dpjcYOLCE?usp=sharing) and unzip the contents into `data/`:
+
+- `scenes.zip` -> `data/scenes/`
 
 
 ## cuRobo Config
