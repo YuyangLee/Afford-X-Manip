@@ -1,0 +1,140 @@
+scene_prim_path: /World
+robot_prim_path: /Robot
+robot_cam_prim_path: ${robot_prim_path}/panda_hand/franka_camera
+hold_obj_link_path: ${robot_prim_path}/panda_hand
+hold_obj_joint_path: ${robot_prim_path}/object_holder
+headless: false
+capture: false
+aff_threshold: 0.8
+aff_threshold_soft: 0.5
+safe_offset: 0.05
+reach_distance: 1.0
+robot_usd_path: assets/ridgeback_franka/ridgeback_franka.usd
+voice: false
+device: cuda:0
+debug: False
+seed: 42
+scene_id: hotel_suite_large/desk_ohjotf_0
+task_name: drink_water_with
+i_cfg: 0
+affordance:
+  annotation_type: bbox
+  attention_map: false
+  aux_loss: true
+  backbone: resnet101
+  bbox_loss_coef: 5
+  ce_loss_coef: 1
+  clip_max_norm: 0.1
+  cluster: false
+  cluster_choice_loss: 0
+  cluster_feature_loss: 10000.0
+  cluster_memory_size: 1024
+  cluster_num: 3
+  combine_datasets:
+    - flickr
+  combine_datasets_val:
+    - flickr
+  contrastive_align_loss: true
+  contrastive_align_loss_coef: 1
+  contrastive_loss: false
+  contrastive_loss_coef: 0.1
+  contrastive_loss_hdim: 64
+  dataset_config: models/affordance_reasoning/configs/tdod_v2.json
+  dec_layers: 6
+  device: cuda
+  dice_loss_coef: 1
+  dilation: false
+  dim_feedforward: 2048
+  dist_url: env://
+  distillation: false
+  dropout: 0.1
+  ema: false
+  ema_decay: 0.9998
+  enc_layers: 6
+  eos_coef: 0.1
+  epochs: 5
+  eval: false
+  eval_skip: 1
+  fifo_memory: false
+  fraction_warmup_steps: 0.01
+  freeze_backbone: false
+  freeze_text_encoder: false
+  frozen_weights: null
+  giou_loss_coef: 2
+  hidden_dim: 256
+  image_path: models/affordance_reasoning/app_src/input/exp1.png
+  json_input: models/affordance_reasoning/app_src/input_2.json
+  load: data/ckpt/distillation.pth
+  load_noun: ""
+  lr: 0.0001
+  lr_backbone: 1.0e-05
+  lr_drop: 35
+  mask_loss_coef: 1
+  mask_model: none
+  masks: false
+  model_type: vit_h
+  no_contrastive_align_loss: false
+  nheads: 8
+  nsthl2_coef: 10000.0
+  nsthl2_loss: false
+  num_queries: 100
+  num_workers: 10
+  optimizer: adam
+  output_dir: ""
+  output_path: app_src/output/
+  pass_pos_and_query: true
+  path_input: models/affordance_reasoning/app_src/input/exp3.png
+  path_output: models/affordance_reasoning/app_src/output/
+  position_embedding: sine
+  pre_norm: false
+  prompt: sit comfortably on something
+  qa_loss_coef: 1
+  resume: ""
+  run_name: ""
+  sam_gq_ckpt_path: models/affordance_reasoning/segment_anything/ckpt/sam_vit_h_4b8939.pth
+  sam_checkpoint_path: models/affordance_reasoning/segment_anything/ckpt/sam_vit_h_4b8939.pth
+  schedule: linear_with_warmup
+  seed: 3407
+  set_cost_bbox: 5
+  set_cost_class: 1
+  set_cost_giou: 2
+  set_loss: hungarian
+  softkd_coef: 1
+  softkd_loss: false
+  start_epoch: 0
+  temperature_NCE: 0.07
+  test: false
+  test_type: test
+  text_encoder_lr: 5.0e-05
+  text_encoder_type: roberta-base
+  tokenizer_pretrained_dir: models/affordance_reasoning/path/roberta-base
+  train_batch_size: 3
+  valid_batch_size: 8
+  verb_noun_input: false
+  weight_decay: 0.0001
+  without_pretrain: false
+  world_size: 1
+  gpu: 9
+  req_mask: true
+  mask: false
+  fusion: true
+  verb_att: true
+  use_dyhead: false
+  use_txtlayer: false
+camera:
+  focal_length: 18.0
+  resolution_h: 1280
+  resolution_w: 720
+  pixel_size: 0.003
+  f_stop: 1.8
+  focus_distance: 0.6
+  inspection_dist: 0.25
+graspnet:
+  checkpoint_path: models/graspnet/ckpt/checkpoint-rs.tar
+  num_point: 2048
+  num_view: 300
+  collision_thresh: 0.005
+  voxel_size: 0.01
+motion_gen:
+  grasp_approach_offset: 0.1
+  use_slam_collision: false

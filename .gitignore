@@ -1,0 +1,12 @@
+*pycache*
+.DS_Store
+
+# Affordance reasoning model
+models/
+OmniGibson/
+
+data/ckpt/
+data/scenes/
+
+outputs/
+build/

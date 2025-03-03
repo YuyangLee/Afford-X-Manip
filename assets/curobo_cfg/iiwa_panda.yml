@@ -1,0 +1,108 @@
+##
+## Copyright (c) 2023 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+##
+## NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+## property and proprietary rights in and to this material, related
+## documentation and any modifications thereto. Any use, reproduction,
+## disclosure or distribution of this material and related documentation
+## without an express license agreement from NVIDIA CORPORATION or
+## its affiliates is strictly prohibited.
+##
+robot_cfg:
+  kinematics:
+    base_link: base_link
+    collision_link_names:
+      - iiwa7_link_1
+      - iiwa7_link_2
+      - iiwa7_link_3
+      - iiwa7_link_4
+      - iiwa7_link_5
+      - iiwa7_link_6
+      - panda_hand
+      - panda_leftfinger
+      - panda_rightfinger
+    collision_sphere_buffer: 0.005
+    collision_spheres: spheres/iiwa_panda.yml
+    ee_link: ee_link
+    self_collision_buffer:
+      iiwa7_link_1: -0.02
+      iiwa7_link_2: 0.0
+      iiwa7_link_3: 0.0
+      iiwa7_link_4: 0.0
+      iiwa7_link_5: 0.0
+      iiwa7_link_6: 0.0
+      panda_hand: 0.02
+      panda_leftfinger: 0.01
+      panda_rightfinger: 0.01
+
+    self_collision_ignore:
+      {
+        iiwa7_link_1: [iiwa7_link_2, iiwa7_link_3, panda_hand, panda_leftfinger, panda_rightfinger],
+        iiwa7_link_2: [iiwa7_link_3, iiwa7_link_4, panda_hand, panda_leftfinger, panda_rightfinger],
+        iiwa7_link_3: [iiwa7_link_4, iiwa7_link_5, panda_hand, panda_leftfinger, panda_rightfinger],
+        iiwa7_link_4: [iiwa7_link_5, iiwa7_link_6, panda_hand, panda_leftfinger, panda_rightfinger],
+        iiwa7_link_5: [iiwa7_link_6, panda_hand, panda_leftfinger, panda_rightfinger],
+        iiwa7_link_6: [panda_hand, panda_leftfinger, panda_rightfinger],
+        panda_hand: [panda_leftfinger, panda_rightfinger],
+        panda_leftfinger: [panda_rightfinger],
+      }
+    urdf_path: robot/iiwa_allegro_description/iiwa_panda.urdf
+    asset_root_path: robot/iiwa_allegro_description
+    mesh_link_names:
+      - iiwa7_link_1
+      - iiwa7_link_2
+      - iiwa7_link_3
+      - iiwa7_link_4
+      - iiwa7_link_5
+      - iiwa7_link_6
+      - panda_hand
+      - panda_leftfinger
+      - panda_rightfinger
+    lock_joints: {"panda_finger_joint1": 0.04, "panda_finger_joint2": 0.04}
+    cspace:
+      joint_names:
+        [
+          "iiwa7_joint_1",
+          "iiwa7_joint_2",
+          "iiwa7_joint_3",
+          "iiwa7_joint_4",
+          "iiwa7_joint_5",
+          "iiwa7_joint_6",
+          "iiwa7_joint_7",
+          "panda_finger_joint1",
+          "panda_finger_joint2"
+        ]
+      cspace_distance_weight:
+        - 1.0
+        - 0.9
+        - 0.8
+        - 0.8
+        - 0.7
+        - 0.6
+        - 0.5
+        - 1.0
+        - 1.0
+
+      null_space_weight:
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+
+      retract_config:
+        - 0.0
+        - -0.78
+        - 0.0
+        - -1.4
+        - 0.0
+        - 0.6
+        - 0.0
+        - 0.04
+        - 0.04
+      max_acceleration: 15.0
+      max_jerk: 500.0

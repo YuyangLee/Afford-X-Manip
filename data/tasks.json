@@ -1,0 +1,29 @@
+{
+    "drink water with": [
+        "coffee_cup",
+        "bottle_of_water",
+        "paper_cup"
+    ],
+    "spread butter with": [
+        "table_knife",
+        "teaspoon",
+        "spatula"
+    ],
+    "protect items from rain with": [
+        "umbrella",
+        "plastic_bag",
+        "shoulder_bag"
+    ],
+    "stream video with": [
+        "laptop",
+        "cell_phone"
+    ],
+    "Clean electronic screens with": [
+        "hand_towel",
+        "dishtowel"
+    ],
+    "stir the chocolate with": [
+        "teaspoon",
+        "spatula"
+    ]
+}

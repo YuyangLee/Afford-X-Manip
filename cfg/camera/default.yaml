@@ -1,0 +1,7 @@
+focal_length: 32.0
+resolution_h: 1920
+resolution_w: 1080
+pixel_size: 0.003
+f_stop: 1.8
+focus_distance: 1.2
+inspection_dist: 1.5
