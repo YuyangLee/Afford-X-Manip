@@ -119,6 +119,10 @@ export OG_DIR=OmniGibson  # Change the path to your omnigibson directory
 python manipulation_long.py
 ```
 
+## Known Issues
+
+- Some textures are missing in the released scene data.
+
 
 ## FAQ
 
