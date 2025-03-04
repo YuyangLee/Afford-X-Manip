@@ -6,7 +6,6 @@ from typing import Optional
 import numpy as np
 import omni.isaac.core.utils.prims as prims_utils
 import torch
-import trimesh as tm
 from curobo.geom.sdf.world import CollisionCheckerType
 from curobo.geom.types import WorldConfig
 from curobo.types.base import TensorDeviceType
@@ -15,7 +14,6 @@ from curobo.types.robot import JointState, RobotConfig
 from curobo.util.logger import setup_logger
 from curobo.util_file import (
     get_robot_configs_path,
-    get_world_configs_path,
     join_path,
     load_yaml,
 )
@@ -39,7 +37,6 @@ from pytorch3d import transforms
 from tqdm import trange
 
 from helpers.helper import Helper
-from utils.consts import *
 
 setup_logger(level="warning")
 
@@ -226,17 +223,16 @@ class RidgebackFranka(Robot):
 
     def attach_nearest_object(self, stage, candidate_objects, mode="mesh"):
         # Find nearest object
-        dst = 0.3  # Maximum tolerable distance: 20 cm
+        dst = 0.3
         self.hold_object_target_prim = None
         gripper_pos = self.tcp_pos
         from_prim_tf = self.ee_pose
         for prim in candidate_objects.values():
-            # obj_usdgeom = UsdGeom.Xformable(get_prim_at_path(prim))
             print()
-            obj_usdgeom = UsdGeom.Xformable(get_prim_at_path(prim + "/base_link"))
+            obj_usdgeom = UsdGeom.Xformable(get_prim_at_path(prim))
             obj_pose = np.asarray(obj_usdgeom.ComputeLocalToWorldTransform(Usd.TimeCode.Default())).transpose()
             if mode == "mesh":
-                obj_vmesh = UsdGeom.Mesh(get_prim_at_path(prim + "/base_link/visuals"))
+                obj_vmesh = UsdGeom.Mesh(get_prim_at_path(prim))
                 obj_verts = np.array(obj_vmesh.GetPointsAttr().Get())
                 obj_verts = np.matmul(obj_pose, np.pad(obj_verts, ((0, 0), (0, 1)), constant_values=1.0).T).T[:, :3]
                 gripper_to_obj_dist = np.min(np.linalg.norm(gripper_pos[None] - obj_verts, axis=1)).min()
@@ -245,7 +241,7 @@ class RidgebackFranka(Robot):
                 gripper_to_obj_dist = np.linalg.norm(gripper_pos - obj_pos)
             if gripper_to_obj_dist < dst:
                 dst = gripper_to_obj_dist
-                self.hold_object_target_prim = prim + "/base_link"
+                self.hold_object_target_prim = prim
                 to_prim_tf = obj_pose
                 translation_matrix = np.linalg.inv(from_prim_tf) @ to_prim_tf
                 translation, orientation = pose_from_tf_matrix(translation_matrix)
@@ -414,12 +410,10 @@ class IIWAPanda(Robot):
         self.attach_obj_flag = False
 
     def attach_nearest_object(self, stage, candidate_objects, mode="mesh"):
-        # Find nearest object
-        dst = 0.2  # Maximum tolerable distance: 20 cm
+        dst = 0.1
         self.hold_object_target_prim = None
         gripper_pos = self.tcp_pos
         for prim in candidate_objects:
-            # obj_usdgeom = UsdGeom.Xformable(get_prim_at_path(prim))
             obj_usdgeom = UsdGeom.Xformable(get_prim_at_path(prim + "/base_link"))
             obj_pose = np.asarray(obj_usdgeom.ComputeLocalToWorldTransform(Usd.TimeCode.Default())).transpose()
             if mode == "mesh":
@@ -711,7 +705,6 @@ class MotionGenHelper(Helper):
                     continue
 
                 logger.warning(f"Target {i} failed due to unknown reasons. Status: {result.status}")
-        # -----------------------------------
 
         if result.success.sum() == 0:
             return success, None
@@ -745,5 +738,3 @@ class MotionGenHelper(Helper):
             callback_fn(success.sum() > 0, q_traj[0])
 
         return success, q_traj
-
-    # -------- revised by ZXM -----------

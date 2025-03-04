@@ -11,7 +11,6 @@ from loguru import logger
 from omegaconf import DictConfig, open_dict
 from tqdm import trange
 
-from utils.consts import *
 from utils.utils_assets import og_decrypt_file
 from utils.utils_record import export_to_cam
 
